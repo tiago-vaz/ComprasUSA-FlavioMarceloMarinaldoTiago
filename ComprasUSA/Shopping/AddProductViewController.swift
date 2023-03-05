@@ -34,7 +34,6 @@ class AddProductViewController: UIViewController {
         tfValue.addTarget(self, action: #selector(editingChanged), for: .editingChanged)
         tfValue.keyboardType = .decimalPad
         
-        
         if product != nil{
             tfProductName.text = product.name
             tfProductState.text = product.states?.name
@@ -52,9 +51,6 @@ class AddProductViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddProductViewController.handleTap))
         ivImage.addGestureRecognizer(tapGesture)
-        //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        
-        
     }
     
     deinit {
@@ -182,8 +178,6 @@ class AddProductViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-
 }
 
 extension AddProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {

@@ -107,13 +107,11 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //let cell = tableView.cellForRow(at: indexPath)!
-
         tableView.deselectRow(at: indexPath, animated: false)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 35
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -123,8 +121,6 @@ extension SettingViewController: UITableViewDelegate {
             try! self.context.save()
             self.data.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-            
         }
         
         let editAction = UITableViewRowAction(style: .normal, title: "Editar") { (action: UITableViewRowAction, indexPath: IndexPath) in

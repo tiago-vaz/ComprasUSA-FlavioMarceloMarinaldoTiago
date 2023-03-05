@@ -12,13 +12,10 @@ import CoreData
 
 var data: [Product] = []
 
-
     class TotalViewController: UIViewController {
-        
         
         @IBOutlet weak var lbTotalUSD: UILabel!
         @IBOutlet weak var lbTotalBRL: UILabel!
-        
 
         var formatter = NumberFormatter()
         var quota: Double = 0
@@ -29,7 +26,6 @@ var data: [Product] = []
         }
         
         override func viewWillAppear(_ animated: Bool) {
-            // Do any additional setup after loading the view.
             loadProdutos()
             var totalGrossValue: Double = 0
             var totalNetValue: Double = 0
@@ -47,7 +43,6 @@ var data: [Product] = []
             let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
             fetchRequest.sortDescriptors = [sortDescriptor]
             do {
-                
                data = try context.fetch(fetchRequest)
             } catch {
                 print(error.localizedDescription)
@@ -62,10 +57,6 @@ var data: [Product] = []
             let totalDolarTaxes: Double
             var totalBRLValue: Double
             
-            //print("Valor do imposto CoreData: \(product.states?.taxes)")
-            
-            // calculo dolar total + % imposto estado
-            
             enum Optional<T> {
                 case None
                 case Some(T)
@@ -78,7 +69,6 @@ var data: [Product] = []
                     self = .None
                 }
             }
-            
 
             if Int(product.states!.taxes) > 0  {
                 stTaxes = product.states!.taxes
@@ -88,31 +78,21 @@ var data: [Product] = []
             } else {
                 totalDolarTaxes = product.value
             }
-
-            // total de dolar com imposto  - exibe na tela
             
-            print("total de dolar com imposto: \(totalDolarTaxes)")
+            print("Valor total em dolar com imposto: \(totalDolarTaxes)")
 
-            // calculo de com imposto * cotacao do dolar
-            // valor em reais
-            let realValue = totalDolarTaxes * quotation
-            totalBRLValue = realValue
-            print("valor em reais: \(totalBRLValue)")
+            totalBRLValue = totalDolarTaxes * quotation
+            print("Valor em reais: \(totalBRLValue)")
             
-//            if iof > 0 {
-//                totalBRLValue = realValue * (realValue * iof/100)
-//            }
+            let totalBRLTaxes = product.card ? totalBRLValue + ((iof/100) * totalBRLValue)  : totalBRLValue
+            print("Valor total em reais incluindo impostos: \(totalBRLTaxes)")
             
-            // valor em reias * o IOF
-            // Total em reais - exibe na tela
-
-            return product.card ? totalBRLValue + ((iof/100) * totalBRLValue)  : totalBRLValue
+            return totalBRLTaxes
             
         }
         
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
-            // Dispose of any resources that can be recreated.
         }
         
         func usDolarNumberFormatter(number: Double) -> String{
