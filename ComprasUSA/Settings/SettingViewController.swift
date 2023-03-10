@@ -141,9 +141,9 @@ extension SettingViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! StateTableViewCell
-        let estado = data[indexPath.row]
-        cell.lbState?.text = estado.name
-        cell.lbTax?.text = String( estado.taxes )
+        let state = data[indexPath.row]
+        cell.lbState?.text = state.name
+        cell.lbTax?.text = String( state.taxes.usdValue() )
         return cell
     }
     

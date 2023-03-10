@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13281E4629BA7E1D0028FDE3 /* NumberFormating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13281E4529BA7E1D0028FDE3 /* NumberFormating.swift */; };
 		8402AD88208CC32400858B5F /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8402AD87208CC32400858B5F /* StateTableViewCell.swift */; };
 		84A09156208BC5A5005717B5 /* ComprasUSA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84A09154208BC5A5005717B5 /* ComprasUSA.xcdatamodeld */; };
 		84A0915C208BD131005717B5 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84A0915B208BD131005717B5 /* Settings.bundle */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13281E4529BA7E1D0028FDE3 /* NumberFormating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormating.swift; sourceTree = "<group>"; };
 		8402AD87208CC32400858B5F /* StateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
 		84A09155208BC5A5005717B5 /* ComprasUSA.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ComprasUSA.xcdatamodel; sourceTree = "<group>"; };
 		84A0915B208BD131005717B5 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				84A09165208BDD27005717B5 /* UIViewController+CoreData.swift */,
+				13281E4529BA7E1D0028FDE3 /* NumberFormating.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				84A09156208BC5A5005717B5 /* ComprasUSA.xcdatamodeld in Sources */,
 				84D9D3A32086DCA80006DE4B /* ShoppingTableViewController.swift in Sources */,
 				84D22688208910DE00EED3DF /* AddProductViewController.swift in Sources */,
+				13281E4629BA7E1D0028FDE3 /* NumberFormating.swift in Sources */,
 				8402AD88208CC32400858B5F /* StateTableViewCell.swift in Sources */,
 				84A09166208BDD27005717B5 /* UIViewController+CoreData.swift in Sources */,
 				84A09168208BE2AE005717B5 /* ProductTableViewCell.swift in Sources */,

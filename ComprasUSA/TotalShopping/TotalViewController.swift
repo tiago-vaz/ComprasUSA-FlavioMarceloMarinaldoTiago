@@ -17,7 +17,6 @@ var data: [Product] = []
         @IBOutlet weak var lbTotalUSD: UILabel!
         @IBOutlet weak var lbTotalBRL: UILabel!
 
-        var formatter = NumberFormatter()
         var quota: Double = 0
         var iof: Double = 0
         
@@ -34,8 +33,8 @@ var data: [Product] = []
                 totalNetValue += calculateTotal(product)
             }
             
-            lbTotalUSD.text = usDolarNumberFormatter(number: totalGrossValue)
-            lbTotalBRL.text = brRealNumberFormatter(number: totalNetValue)
+            lbTotalUSD.text = totalGrossValue.usdValue()
+            lbTotalBRL.text = totalNetValue.brlValue()
         }
         
         func loadProdutos() {
@@ -93,28 +92,6 @@ var data: [Product] = []
         
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
-        }
-        
-        func usDolarNumberFormatter(number: Double) -> String{
-            formatter.minimumFractionDigits = 2
-            formatter.maximumFractionDigits = 2
-            formatter.groupingSize = 3
-            formatter.usesGroupingSeparator = true
-            
-            formatter.decimalSeparator = "."
-            formatter.groupingSeparator = ","
-            return formatter.string(from: number as NSNumber)!
-        }
-        
-        func brRealNumberFormatter(number: Double) -> String{
-            formatter.minimumFractionDigits = 2
-            formatter.maximumFractionDigits = 2
-            formatter.groupingSize = 3
-            formatter.usesGroupingSeparator = true
-            
-            formatter.decimalSeparator = ","
-            formatter.groupingSeparator = "."
-            return formatter.string(from: number as NSNumber)!
         }
        
 }

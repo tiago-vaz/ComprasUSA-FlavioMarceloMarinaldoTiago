@@ -67,7 +67,7 @@ class ShoppingTableViewController: UITableViewController {
         let product = fetchedResultController.object(at: indexPath)
         
         cell.lbProductName.text = product.name
-        cell.lbValue.text =  usDolarNumberFormatter(number: product.value)
+        cell.lbValue.text = product.value.usdValue()
         cell.lbState.text = product.states?.name
         cell.lbYesNo.text = product.card ? "Sim" : "Não"
         if let image = product.title as? UIImage {
@@ -106,31 +106,4 @@ extension ShoppingTableViewController: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.reloadData()
     }
-}
-
-func usDolarNumberFormatter(number: Double) -> String{
-    let formatter = NumberFormatter()
-    formatter.minimumFractionDigits = 2
-    formatter.maximumFractionDigits = 2
-    formatter.groupingSize = 3
-    formatter.usesGroupingSeparator = true
-    formatter.alwaysShowsDecimalSeparator = true
-    
-    formatter.decimalSeparator = "."
-    formatter.groupingSeparator = ","
-    return formatter.string(from: number as NSNumber)!
-}
-
-func brRealNumberFormatter(number: Double) -> String{
-    let formatter = NumberFormatter()
-    formatter.minimumFractionDigits = 2
-    formatter.maximumFractionDigits = 2
-    formatter.groupingSize = 3
-    formatter.usesGroupingSeparator = true
-    formatter.alwaysShowsDecimalSeparator = true
-    formatter.numberStyle = .decimal
-    
-    formatter.decimalSeparator = ","
-    formatter.groupingSeparator = "."
-    return formatter.string(from: number as NSNumber)!
 }
