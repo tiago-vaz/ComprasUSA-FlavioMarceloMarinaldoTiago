@@ -61,16 +61,22 @@ class AddProductViewController: UIViewController {
     
     func editingChanged(_ textField: UITextField) {
         guard
-            let nomeProduto = tfProductName.text, !nomeProduto.isEmpty,
-            let estadoProduto = tfProductState.text, !estadoProduto.isEmpty,
-            let valor = tfValue.text, !valor.isEmpty
+            let productName = tfProductName.text, !productName.isEmpty,
+            let productState = tfProductState.text, !productState.isEmpty,
+            let productValueString = tfValue.text, !productValueString.isEmpty,
+            let productValue = Double(productValueString)
             else {
                 btAddProduct.isEnabled = false
                 btAddProduct.backgroundColor = .gray
                 return
         }
-        btAddProduct.isEnabled = true
-        btAddProduct.backgroundColor = .blue
+        if productValue > 0 {
+            btAddProduct.isEnabled = true
+            btAddProduct.backgroundColor = .blue
+        } else {
+            btAddProduct.isEnabled = false
+            btAddProduct.backgroundColor = .gray
+        }
     }
     
     func close() {

@@ -62,43 +62,63 @@ class SettingViewController: UIViewController {
         tdIOF.text = UserDefaults.standard.string(forKey: "iof_preference")!
     }
     
-    func showAlert(type: Type, estado: State?) {
+    func showAlert(type: Type, state: State?) {
         let title = (type == .add) ? "Adicionar" : "Editar"
         let alert = UIAlertController(title: "\(title) estado", message: nil, preferredStyle: .alert)
         
         alert.addTextField { (textStateField: UITextField) in
             textStateField.placeholder = "Nome do estado"
-            if let name = estado?.name {
+            if let name = state?.name {
                 textStateField.text = name
             }
         }
         
-        alert.addTextField { (textImpostoField: UITextField) in
-            textImpostoField.placeholder = "Imposto"
-            textImpostoField.keyboardType = .decimalPad
-            if let imposto = estado?.taxes {
-                textImpostoField.text = String( imposto )
+        alert.addTextField { (tfTaxes: UITextField) in
+            tfTaxes.placeholder = "Imposto"
+            tfTaxes.keyboardType = .decimalPad
+            if let tax = state?.taxes {
+                tfTaxes.text = String( tax )
             }
         }
         
-        alert.addAction(UIAlertAction(title: title, style: .default, handler: { (action: UIAlertAction) in
-            let state = estado ?? State(context: self.context)
+        var saveAction: UIAlertAction!
+
+        saveAction = UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
+            let state = state ?? State(context: self.context)
             state.name = alert.textFields?.first?.text
-            let value = alert.textFields![1].text
-            state.taxes = Double( value! )!
-            do {
-                try self.context.save()
-                self.loadState()
-            } catch {
-                print(error.localizedDescription)
+            
+            if let valueString = alert.textFields?[1].text,
+               let value = Double(valueString),
+               value > 0 {
+                // O valor é válido e maior que zero, atribua-o à propriedade "taxes"
+                state.taxes = value
+                
+                do {
+                    try self.context.save()
+                    self.loadState()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            } else {
+
+                let errorAlert = UIAlertController(title: "Erro", message: "O valor inserido não é um número válido ou é menor ou igual a zero.", preferredStyle: .alert)
+                errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(errorAlert, animated: true, completion: nil)
+                
+                saveAction.isEnabled = false
             }
-        }))
-        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+        }
+
+        alert.addAction(saveAction)
+
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
+
         present(alert, animated: true, completion: nil)
+
     }
 
     
-    @IBAction func add(_ sender: Any) { showAlert(type: .add, estado: nil)
+    @IBAction func add(_ sender: Any) { showAlert(type: .add, state: nil)
     }
     
     
@@ -126,7 +146,7 @@ extension SettingViewController: UITableViewDelegate {
         let editAction = UITableViewRowAction(style: .normal, title: "Editar") { (action: UITableViewRowAction, indexPath: IndexPath) in
             let estado = self.data[indexPath.row]
             tableView.setEditing(false, animated: true)
-            self.showAlert(type: .edit, estado: estado)
+            self.showAlert(type: .edit, state: estado)
         }
         editAction.backgroundColor = .blue
         return [editAction, deleteAction]
